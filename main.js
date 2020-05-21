@@ -3,18 +3,20 @@ var track = new Object;
 
 const checkPasscode = function(guess){
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:3000/check_passcode');
+    xhr.open('GET', 'http://100.16.230.232:5007/check_passcode');
     xhr.setRequestHeader('guess', guess);
     
     xhr.onload = function(){
         if (xhr.status >= 400){
             document.querySelector("#someError p").innerHTML = "Error with passcode check";
             someError.style.display = "block";
-            console.log(xhr.response)
+            console.log(xhr.response);
+            location.reload(true);
         } else{
             var json = JSON.parse(xhr.response)
             if(json.success === 'false'){
                 location.reload(true);
+                console.log(xhr.response)
             };
             access_token = json.access_token;
 
@@ -25,13 +27,13 @@ const checkPasscode = function(guess){
         document.querySelector("#someError p").innerHTML = "Error with passcode check";
         someError.style.display = "block";
         console.log(xhr.response)
+        location.reload(true);
     };
 
     xhr.send();
 };
 
 const search = function(query){
-    console.log("searching")
     const promise = new Promise(function(resolve, reject){
         const xhr = new XMLHttpRequest();
 
