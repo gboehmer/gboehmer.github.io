@@ -3,7 +3,7 @@ var track = new Object;
 
 const checkPasscode = function(guess){
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://100.16.230.232:5008/check_passcode');
+    xhr.open('GET', 'https://100.16.230.232:5008/check_passcode');
     xhr.setRequestHeader('guess', guess);
     
     xhr.onload = function(){
