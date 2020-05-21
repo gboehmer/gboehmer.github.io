@@ -11,11 +11,11 @@ const checkPasscode = function(guess){
             document.querySelector("#someError p").innerHTML = "Error with passcode check";
             someError.style.display = "block";
             console.log(xhr.response);
-            location.reload(true);
+            //location.reload(true);
         } else{
             var json = JSON.parse(xhr.response)
             if(json.success === 'false'){
-                location.reload(true);
+                //location.reload(true);
                 console.log(xhr.response)
             };
             access_token = json.access_token;
@@ -27,7 +27,7 @@ const checkPasscode = function(guess){
         document.querySelector("#someError p").innerHTML = "Error with passcode check";
         someError.style.display = "block";
         console.log(xhr.response)
-        location.reload(true);
+        //location.reload(true);
     };
 
     xhr.send();
