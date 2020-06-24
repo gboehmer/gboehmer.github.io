@@ -1,21 +1,36 @@
 var access_token
 var track = new Object;
 
+const giflinks = ["https://media.giphy.com/media/4oMoIbIQrvCjm/source.gif", 
+"https://media.giphy.com/media/tqfS3mgQU28ko/source.gif",
+"https://media.giphy.com/media/tbapfDZ4mZJn2/source.gif",
+"https://media.giphy.com/media/blSTtZehjAZ8I/source.gif",
+"https://media.giphy.com/media/pa37AAGzKXoek/source.gif"];
+
+const ADDRESS = "https://skyhoffert-backend.com/"
+const SHOULD_RELOAD = false;
+
 const checkPasscode = function(guess){
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://100.16.230.232:5008/check_passcode');
+	const pass_addr = ADDRESS+"check_passcode";
+	console.log("using "+pass_addr);
+    xhr.open("GET", pass_addr);
     xhr.setRequestHeader('guess', guess);
     
     xhr.onload = function(){
         if (xhr.status >= 400){
-            document.querySelector("#someError p").innerHTML = "Error with passcode check";
+            document.querySelector("#someError p").innerHTML = "Error with passcode check "+xhr.responseText;
             someError.style.display = "block";
             console.log(xhr.response);
-            //location.reload(true);
+		if (SHOULD_RELOAD) {
+            		location.reload();
+		}
         } else{
             var json = JSON.parse(xhr.response)
             if(json.success === 'false'){
-                //location.reload(true);
+		    if (SHOULD_RELOAD) {
+                	location.reload();
+		    }
                 console.log(xhr.response)
             };
             access_token = json.access_token;
@@ -24,10 +39,12 @@ const checkPasscode = function(guess){
     };
 
     xhr.onerror = function(){
-        document.querySelector("#someError p").innerHTML = "Error with passcode check";
+        document.querySelector("#someError p").innerHTML = "Error with passcode check "+xhr.responseText;
         someError.style.display = "block";
-        console.log(xhr.response)
-        //location.reload(true);
+        console.log(xhr.response);
+	    if (SHOULD_RELOAD) {
+        	location.reload();
+	    }
     };
 
     xhr.send();
@@ -78,8 +95,8 @@ const performRequest = function(){
             
         } else{
             document.querySelector("#successGiph p").innerHTML = "Success! '" +track.name+ "' has been added to the queue.";
+            document.querySelector("#successGiph img").src = giflinks[Math.floor(Math.random() * giflinks.length)];
             successGiph.style.display = "block";
-            
         }
     };
 
@@ -95,6 +112,7 @@ const performRequest = function(){
 function getSearch() {
     confirmSong.style.display = "none";
     someError.style.display = "none";
+    successGiph.style.display = "none";
 
     var input = document.getElementById("myText").value;
     var inputData = encodeURIComponent(input);
