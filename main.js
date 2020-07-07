@@ -6,8 +6,8 @@ const giflinks = ["https://media.giphy.com/media/4oMoIbIQrvCjm/source.gif",
 "https://media.giphy.com/media/blSTtZehjAZ8I/source.gif",
 "https://media.giphy.com/media/pa37AAGzKXoek/source.gif"];
 
-const ADDRESS = "http://localhost:8000/"
-// const ADDRESS = "https://skyhoffert-backend.com/"
+// const ADDRESS = "http://localhost:8000/"
+const ADDRESS = "https://skyhoffert-backend.com/"
 const SHOULD_RELOAD = true;
 
 const checkPasscode = function(guess){
